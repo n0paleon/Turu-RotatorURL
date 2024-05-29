@@ -1,0 +1,29 @@
+{
+     "app": {
+          "name": "Rotator SMM",
+          "version": "1.0.0",
+          "author": "Nopaleon Bonaparte",
+          "mode": "development",
+          "log_level": 6,
+          "timezone": "Asia/Jakarta"
+     },
+     "web": {
+          "prefork": false,
+          "port": 80,
+          "host": ""
+     },
+     "database": {
+          "migrate": true,
+          "host": "origin.turudev.my.id",
+          "port": "3306",
+          "name": "rotator_url",
+          "username": "rotator_url",
+          "password": "rotator_url",
+          "log_level": 3,
+          "pool": {
+               "idle": 10,
+               "max": 20,
+               "lifetime": 3600
+          }
+     }
+}

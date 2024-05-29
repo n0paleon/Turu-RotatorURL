@@ -1,0 +1,31 @@
+version: '3.8'
+name: "rotator-url"
+
+services:
+  app:
+    container_name: "rotator-url"
+    image: turu-rotator-url
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "::3000"
+    environment:
+      VP_WEB.PORT: 3000
+      VP_WEB.PREFORK: false
+      VP_WEB.HOST: ""
+      VP_DATABASE.MIGRATE: true
+      VP_DATABASE.HOST: origin.turudev.my.id
+      VP_DATABASE.PORT: 3306
+      VP_DATABASE.NAME: rotator_url
+      VP_DATABASE.USERNAME: rotator_url
+      VP_DATABASE.PASSWORD: rotator_url2024
+    networks:
+      turu-rotatorsmm-network:
+        ipv4_address: 172.48.0.2
+      
+networks:
+  turu-rotatorsmm-network:
+    ipam:
+      config:
+        - subnet: 172.48.0.0/16
