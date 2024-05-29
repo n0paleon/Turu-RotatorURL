@@ -24,8 +24,6 @@ func NewURLHandler(db *gorm.DB, log *logrus.Logger, config *viper.Viper) *URLHan
 }
 
 func (h *URLHandler) Rotator(ctx *fiber.Ctx) error {
-	h.Log.Warnf("ini error")
-
 	tx := h.DB.WithContext(ctx.UserContext()).Begin()
 	defer tx.Rollback()
 
