@@ -4,6 +4,7 @@ import (
 	"TuruSMM/delivery/routes"
 	"TuruSMM/handler"
 	"TuruSMM/internal/config"
+	"TuruSMM/internal/cron"
 	"fmt"
 	"time"
 
@@ -23,9 +24,11 @@ func Api() {
 	container.Provide(config.NewFiber)
 	container.Provide(config.NewDatabase)
 	container.Provide(handler.NewURLHandler)
+	container.Provide(handler.NewClientHandler)
 	container.Provide(routes.NewDeliveryRoutes)
+	container.Provide(cron.NewCronJobs)
 
-	err := container.Invoke(func(viper *viper.Viper, app *fiber.App, router *routes.DeliveryRoutes, dbConn *gorm.DB) {
+	err := container.Invoke(func(viper *viper.Viper, app *fiber.App, router *routes.DeliveryRoutes, dbConn *gorm.DB, cron *cron.CronJobs) {
 		config.Migrator(dbConn, viper)
 
 		app.Use(recover.New())
@@ -49,7 +52,9 @@ func Api() {
 			Refresh: 1 * time.Second,
 		}))
 
+		// register/invoke programs
 		router.Register()
+		cron.Schedule()
 
 		web_host := viper.GetString("web.host")
 		web_port := viper.GetInt("web.port")

@@ -8,9 +8,10 @@ import (
 )
 
 type DeliveryRoutes struct {
-	App        *fiber.App
-	Log        *logrus.Logger
-	URLHandler *handler.URLHandler
+	App           *fiber.App
+	Log           *logrus.Logger
+	URLHandler    *handler.URLHandler
+	ClientHandler *handler.ClientHandler
 }
 
 func (route *DeliveryRoutes) Register() {
@@ -19,6 +20,8 @@ func (route *DeliveryRoutes) Register() {
 	r.Get("/rotator", route.URLHandler.Rotator)
 	r.Get("/rotator/:id", route.URLHandler.RotateByID)
 	r.Get("/rotate/:id", route.URLHandler.CustomRotate)
+
+	r.Get("/client/ua", route.ClientHandler.RandomUA)
 }
 
 func NewDeliveryRoutes(App *fiber.App, Log *logrus.Logger, URLHandler *handler.URLHandler) *DeliveryRoutes {

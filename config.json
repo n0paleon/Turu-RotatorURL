@@ -18,12 +18,13 @@
           "port": "3306",
           "name": "rotator_url",
           "username": "rotator_url",
-          "password": "rotator_url",
+          "password": "rotator_url2024",
           "log_level": 3,
           "pool": {
                "idle": 10,
                "max": 20,
                "lifetime": 3600
-          }
+          },
+          "cron": "0 0 * * *"
      }
 }
